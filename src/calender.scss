@@ -1,0 +1,225 @@
+$off-white: #fafafa;
+$steel-gray: #bab8b8;
+$charcoal: #1e1e1e;
+$steel-gray-300: darken($steel-gray, 10%);
+$steel-gray-500: darken($steel-gray, 20%);
+$transition-duration-fast: 0.2s;
+
+@mixin responsive-layout($breakpoint) {
+  @if $breakpoint == small {
+    @media only screen and (max-width: 575.98px) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media only screen and (max-width: 767.98px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media only screen and (min-width: 768px) and (max-width: 991.98px) {
+      @content;
+    }
+  } @else if $breakpoint == large {
+    @media only screen and (min-width: 992px) {
+      @content;
+    }
+  }
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calender-container {
+  background-color: #ffffff;
+  padding: 3px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  position: relative;
+  width: 145px;
+}
+
+.calenderInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 4px;
+  cursor: pointer;
+  user-select: none;
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: $steel-gray-300;
+  }
+
+  .selectedDate {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: $steel-gray-300;
+  }
+}
+
+.calender-wrapper {
+  position: absolute;
+
+  color: $steel-gray;
+  font-size: 16px;
+  border: none;
+  outline: none;
+
+  left: -83px;
+  z-index: 3;
+  @include responsive-layout(small) {
+    left: -60px;
+  }
+
+  .calender {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 11px;
+  }
+
+  .calender-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 16px;
+    padding-inline: 6px;
+    font-weight: 500;
+  }
+
+  .dateNavigation {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+
+    .nav-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transition: $transition-duration-fast;
+      cursor: pointer;
+      // pointer-events: none;
+      user-select: none;
+      @include flex-align-center;
+
+      &:hover {
+        background-color: $charcoal;
+        // color: $off-white !important;
+      }
+
+      &:hover svg {
+        fill: $off-white;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: $charcoal;
+      }
+    }
+
+    .today {
+      color: $charcoal;
+      cursor: pointer;
+      transition: $transition-duration-fast;
+
+      &:hover,
+      :focus-visible {
+        color: $steel-gray-500;
+      }
+    }
+  }
+
+  .calender-body {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    // padding: 5px;
+    height: 100%;
+    @include responsive-layout(small) {
+      padding: 0px;
+    }
+
+    .weekDays {
+      color: $charcoal;
+      font-size: 15px;
+      margin-bottom: 5px;
+      font-weight: 500;
+      margin-inline: 7px;
+
+      @include responsive-layout(small) {
+        margin-inline: 3px;
+      }
+    }
+
+    .day {
+      @include flex-align-center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 14px;
+      cursor: pointer;
+      color: $steel-gray-500;
+      transition: $transition-duration-fast;
+
+      @include responsive-layout(small) {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    .currentDay {
+      background-color: $charcoal;
+      color: $off-white !important;
+    }
+
+    .otherDay {
+      color: $steel-gray;
+      &:hover,
+      &:focus-visible {
+        background-color: $charcoal;
+        color: $off-white;
+      }
+    }
+
+    .currentMonthDay {
+      color: $steel-gray-500;
+    }
+
+    .selectedDate {
+      color: $off-white;
+      background-color: $steel-gray-300;
+      &:hover,
+      &:focus-visible {
+        background-color: $charcoal;
+        color: $off-white;
+      }
+    }
+  }
+
+  .selected-field {
+    text-align: center;
+    color: $off-white;
+    border-top: 1px solid $off-white;
+    margin-top: 15px;
+    padding-block: 6px;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+}
+::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
