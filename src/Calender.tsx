@@ -83,22 +83,26 @@ const Calender = ({ multiple }: CalenderProps) => {
     // console.log(arrayOfDates);
     setArrayOfDates(arrayOfDates);
   };
-  const prevMonth = () => {
-    setDate((prev) => ({
-      ...prev,
-      currentDate: new Date(
-        prev.currentDate.setMonth(prev.currentDate.getMonth() - 1)
-      ),
-    }));
-  };
-  const nextMonth = () => {
-    setDate((prev) => ({
-      ...prev,
-      currentDate: new Date(
-        prev.currentDate.setMonth(prev.currentDate.getMonth() + 1)
-      ),
-    }));
-  };
+    const prevMonth = () => {
+      setDate((prev) => ({
+        ...prev,
+        currentDate: new Date(
+          prev.currentDate.getFullYear(),
+          prev.currentDate.getMonth() - 1,
+          1
+        ),
+      }));
+    };
+    const nextMonth = () => {
+      setDate((prev) => ({
+        ...prev,
+        currentDate: new Date(
+          prev.currentDate.getFullYear(),
+          prev.currentDate.getMonth() + 1,
+          1
+        ),
+      }));
+    };
   const goToToday = () => {
     setDate((prev) => ({
       ...prev,
